@@ -1,0 +1,11 @@
+{
+    "/api": {
+      "target": "https://api-v2.iclass.com.br",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }

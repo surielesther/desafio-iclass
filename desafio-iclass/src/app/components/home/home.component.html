@@ -1,0 +1,107 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<header>
+    <img id="logo" src="../../../assets/logo.png" alt="logotipo da empresa IClass Sistemas">
+    <div class="infos">
+      <div>
+          <h3>Olá, {{userInfo.fullName}}</h3>
+          <p>{{userInfo.email}}</p>
+      </div>
+      <img class="icone" src="../../../assets/userIcon.png" alt="ícone de perfil">
+      <button class="button logout" type="button" (click)="logout()">sair</button>
+    </div>
+</header>
+<body>
+    <h1>Ordens de serviço</h1>
+    <h4>Como você prefere buscar as ordens de serviço?</h4>
+    <div>
+      <button class="button searchButton" type="button" (click)="selectCluster()">Buscar por cluster e outros filtros</button>
+      <button class="button searchButton" type="button" (click)="showCodeInput()">Buscar por código</button>
+    </div>
+    <div class="filtros">
+        <div class="filtros" *ngIf="showTag">
+            <p class="selecione">Selecione uma data de início, uma data final e um cluster:</p>
+            <div class="inputsAngular">
+              <mat-form-field class="mat" appearance="fill">
+                <mat-label>Máximo: 30 dias</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Início" [(ngModel)]="dateRange.start">
+                  <input matEndDate placeholder="Fim" [(ngModel)]="dateRange.end">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+        
+              <mat-form-field class="mat" appearance="fill">
+                <mat-label>Selecione o cluster</mat-label>
+                <mat-select [(value)]="selectedCluster">
+                  <mat-option *ngFor="let cluster of clusters" [value]="cluster.nome">
+                    {{cluster.nome}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+              
+              <!-- <mat-form-field appearance="fill">
+                <mat-label>Selecione o filtro:</mat-label>
+                <mat-select [(value)]="selectedFilter">
+                  <mat-option [value]="customerName">
+                    Nome do cliente:
+                  </mat-option>
+                  <mat-option  [value]="ssn">
+                    ssn:
+                  </mat-option>
+                  <mat-option [value]="thirdPartyCode">
+                    Third party code:
+                  </mat-option>
+                  <mat-option [value]="statuses">
+                    Status da ordem de serviço:
+                  </mat-option>
+                  <mat-option [value]="updatedDate_begin">
+                    Data de atualização:
+                  </mat-option>
+                  <mat-option [value]="closedBy">
+                    Fechado por:
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div>
+                <input type="text" id="filterValue" [(ngModel)]="filterValue" placeholder="ex: 0123456789" >
+              </div> -->
+
+              <button class="button searchButton" (click)="searchByCluster()">Buscar</button>
+
+            </div>
+
+            <div class="divLabel" *ngIf="showInput">
+              <div class="label">
+                <label  for="code">Insira o código da ordem de serviço:</label>
+            </div>
+            <div class="divInput">
+                <input type="text" id="code" [(ngModel)]="code" placeholder="ex: 0123456789" >
+            </div>
+            <button class="button searchButton" (click)="codeSearch()" >Buscar</button>
+            </div>
+            <div class="ordens" *ngFor="let key of serviceOrders">
+              {{ key.id }}
+              {{ key.contrato.nomeTitular }}
+              <div class="accordion">
+                <button class="button details" (click)="showDetails = !showDetails">
+                  Clique para {{showDetails ? 'ocultar' : 'mostrar'}} detalhes
+                  <span class="arrow">{{showDetails ? '▲' : '▼'}}</span>
+                </button>
+              </div>
+              <!-- <div class="modal">
+                testando modal
+              </div>
+              <div class="overlay"></div> -->
+            </div>
+            <div *ngIf="noneServiceFounded">
+              <p class="p">Nenhuma ordem de serviço encontrada.</p>
+            </div>
+
+    </div>
+</body>

@@ -1,0 +1,32 @@
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  </head>
+<header>
+    <img src="../../../assets/logo.png" alt="logotipo da empresa IClass Sistemas">
+    
+</header>
+<body>
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <div>
+            <label for="username">Nome de usuário:</label>
+        </div>
+        <div>
+            <input type="text" id="username" formControlName="username" placeholder="informe seu nome de usuário">
+        </div>
+        <div *ngIf="f['username'].touched && f['username'].invalid" class="alert alert-danger" >
+            <div class="erro" *ngIf="f['username'].errors?.['required']">Um nome de usuário é necessário</div>
+        </div>
+        <div>
+            <label for="password">Senha:</label>
+        </div>
+        <div>
+            <input type="password" id="password" formControlName="password" placeholder="informe sua senha">
+        </div>
+        <div *ngIf="f['password'].touched && f['password'].invalid" class="alert alert-danger">
+            <div class="erro" *ngIf="f['password'].errors?.['required']">Uma senha é necessária</div>
+        </div>
+        <button class="button login" [disabled]="loginForm.invalid" type="submit" >Login</button>
+    </form>
+</body>
